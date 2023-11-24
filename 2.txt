@@ -1,0 +1,24 @@
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+
+tf2::Vector3 quaternionToYawVector3(const tf2::Quaternion& quat) {
+    // Convert Quaternion to Euler angles
+    double roll, pitch, yaw;
+    tf2::Matrix3x3(quat).getRPY(roll, pitch, yaw);
+
+    // Return only the yaw component
+    return tf2::Vector3(0.0, yaw, 0.0);
+}
+
+int main(int argc, char** argv) {
+    // Exemple d'utilisation
+    tf2::Quaternion quaternion;
+    quaternion.setRPY(0, 0, 1); // Remplacez par les valeurs de votre quaternion
+
+    tf2::Vector3 yaw_vector = quaternionToYawVector3(quaternion);
+    std::cout << "Yaw: " << yaw_vector.y() << std::endl;
+
+    return 0;
+}
+
+
